@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Support Ticket | WorkDo Dash</title>
+    <link rel="icon" href="assets/images/favicon.png">
+    <!-- Tailwind CSS CDN -->
+    <script src="assets/js/tailwind.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom configuration for Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#38bdf8',  // sky-400
+                            DEFAULT: '#14B8A6', // sky-700
+                            dark: ':#068c7d',   // sky-800
+                        },
+                        secondary: {
+                            light: '#14b8a629',  // sky-100
+                            DEFAULT: '#bae6fd', // sky-200
+                            dark: '#068c7d',   // sky-300
+                        },
+                        accent: {
+                            DEFAULT: '#14B8A6', // orange-500
+                            dark: '#ea580c',    // orange-600
+                        },
+                        code: {
+                            light: '#f1f5f9', /* slate-100 */
+                            dark: '#1e293b', /* slate-800 */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        mono: ['Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    animation: {
+                        'fadeIn': 'fadeIn 0.5s ease-out',
+                        'slideIn': 'slideIn 0.5s ease-out',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="assets/css/all.min.css">
+ 
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+<body class=" min-h-screen font-sans relative overflow-x-hidden animated-bg knowledge-article-sec">
+    <!-- Background Shapes -->
+   
+    
+    <div class="container mx-auto px-4 py-4 max-w-7xl relative z-10">
+        <!-- Header -->
+        <header class="mb-10 md:mb-16 site-header">
+            <!-- Top Header with Logo and Action Buttons -->
+            <div class="bg-primary text-white py-3 px-4 rounded-xl shadow-lg mb-4">
+                <div class="flex flex-wrap justify-between items-center">
+                    <!-- Logo -->
+                     <h1>
+                    <a href="index.html" class="flex items-center space-x-3 lg:max-w-none max-w-[120px]">
+                        <img src="assets/images/logo.png" alt="">
+                    </a>
+                </h1>
+                    <div class="main-nav hidden md:block ">
+                        <nav class="flex flex-wrap justify-center md:gap-3 lg:gap-4">
+                            <a href="index.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Create Ticket
+                            </a>
+                            <a href="search-ticket.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Search Tickets
+                            </a>
+                            <a href="knowledge.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Knowledge Base
+                            </a>
+                            <a href="faq.html"
+                                class="text-white transition font-medium duration-300 lg:text-lg flex items-center hover:text-gray-800">
+                                FAQ
+                            </a>
+                        </nav>
+                    </div>
+                    <!-- Action Buttons (visible only on desktop) -->
+                    <div class="hidden md:flex items-center space-x-3 header-right-color">
+                        <a href="login.html"
+                            class="btn btn-white bg-white text-gray-700 flex items-center transition duration-300 btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span class="m-0">Sign In</span>
+                        </a>
+                        <a href="contact.html"
+                            class="btn btn-white bg-white text-gray-700 flex items-center transition duration-300 btn">
+                            <i class="fas fa-headset"></i>
+                            <span class="m-0">Contact</span>
+                        </a>
+                    </div>
+
+                    <!-- Mobile Menu Button (visible only on mobile) -->
+                    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (initially hidden) -->
+            <div id="mobile-menu" class="bg-white rounded-xl shadow-lg mb-4 p-4 hidden animate-fadeIn md:hidden">
+                <nav class="flex flex-col space-y-2">
+                    <a href="index.html" class="text-primary rounded-lg transition duration-300 flex items-center">
+                        <i class="fas fa-ticket-alt mr-2"></i> Create Ticket
+                    </a>
+                    <a href="search-ticket.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-search mr-2"></i> Search Tickets
+                    </a>
+                    <a href="knowledge.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-book mr-2"></i> Knowledge Base
+                    </a>
+                    <a href="faq.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-question-circle mr-2"></i> FAQ
+                    </a>
+
+                    <div class="flex flex-wrap justify-center items-center border-t pt-3 gap-3">
+                        <a href="login.html" class="btn transition duration-300 flex items-center">
+                            <i class="fas fa-user-circle"></i> Sign In
+                        </a>
+                        <a href="contact.html" class="btn transition duration-300 flex items-center">
+                            <i class="fas fa-headset"></i> Contact Support
+                        </a>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Main Navigation (desktop only) -->
+
+
+
+        </header>
+        <!-- Article Header -->
+        <div class="mb-8">
+            <!-- Breadcrumbs -->
+            <div class="text-sm text-gray-500 mb-4">
+                <a href="index.html" class="hover:text-primary">Home</a>
+                <span class="mx-2">/</span>
+                <a href="knowledge.html" class="hover:text-primary">Knowledge Base</a>
+                <span class="mx-2">/</span>
+                <a href="#" class="hover:text-primary">Basic Usage</a>
+                <span class="mx-2">/</span>
+                <span class="text-gray-700">How to Create a new Database</span>
+            </div>
+            
+            <!-- Article Title Section -->
+            <div class="bg-primary rounded-xl overflow-hidden shadow-lg">
+                <div class="py-6 px-4 md:p-8 flex flex-col md:flex-row items-center">
+                    <div class="w-full md:w-3/5 text-white mb-8 md:mb-0 md:pr-8">
+                        <div class="mb-4 animate-fadeIn">
+                            <span class="inline-block bg-white/20 text-white text-sm px-4 py-1 rounded-full backdrop-blur-sm mb-3 md:mb-4">
+                                <i class="fas fa-database mr-1"></i> Basic Usage
+                            </span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-white animate-fadeIn" style="animation-delay: 0.1s">How to Create a new Database</h2>
+                        <p class="text-white mb-4 md:mb-6 animate-fadeIn" style="animation-delay: 0.2s">
+                            Learn how to create and configure a new database for your application with our step-by-step guide
+                        </p>
+                        <div class="flex flex-wrap items-center gap-4 lg:gap-6 text-sm animate-fadeIn" style="animation-delay: 0.3s">
+                            <div class="flex items-center">
+                                <i class="far fa-calendar-alt mr-2"></i> 
+                                <span>Last updated: May 1, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="far fa-clock mr-2"></i> 
+                                <span>5 min read</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="far fa-eye mr-2"></i> 
+                                <span>1,245 views</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/5 flex justify-center">
+                        <img src="assets/images/svg/database-illustration.svg" alt="Database Illustration" class="database-illustration w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Left Sidebar (Table of Contents) -->
+            <div class="w-full lg:w-1/4">
+                <div class="bg-white rounded-xl shadow-md p-4 md:p-5 sticky top-4">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-list-ul text-primary mr-2"></i> Table of Contents
+                    </h3>
+                    <div class="space-y-1">
+                        <a href="#prerequisites" class="toc-link text-gray-700 text-sm rounded">Prerequisites</a>
+                        <a href="#step1" class="toc-link text-gray-700 text-sm rounded">Step 1: Log in to the Dashboard</a>
+                        <a href="#step2" class="toc-link text-gray-700 text-sm rounded">Step 2: Access Databases Section</a>
+                        <a href="#step3" class="toc-link text-gray-700 text-sm rounded">Step 3: Create Database</a>
+                        <a href="#step4" class="toc-link text-gray-700 text-sm rounded">Step 4: Configure the Database</a>
+                        <a href="#step5" class="toc-link text-gray-700 text-sm rounded">Step 5: Verify and Use</a>
+                        <a href="#troubleshooting" class="toc-link text-gray-700 text-sm rounded">Troubleshooting</a>
+                    </div>
+                    
+                    <!-- Quick Resources Box -->
+                    <div class="mt-4 md:mt-8 pt-4 md:pt-6 border-t border-gray-200">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fas fa-link text-primary mr-2"></i> Quick Resources
+                        </h3>
+                        <div class="space-y-3">
+                            <a href="#" class="flex items-center text-gray-700 hover:text-primary text-sm">
+                                <i class="fas fa-file-code mr-2 text-primary"></i>
+                                <span>Database Connection Examples</span>
+                            </a>
+                            <a href="#" class="flex items-center text-gray-700 hover:text-primary text-sm">
+                                <i class="fas fa-server mr-2 text-primary"></i>
+                                <span>System Requirements</span>
+                            </a>
+                            <a href="#" class="flex items-center text-gray-700 hover:text-primary text-sm">
+                                <i class="fas fa-shield-alt mr-2 text-primary"></i>
+                                <span>Database Security Guide</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Article Content -->
+            <div class="w-full lg:w-2/4">
+                <div class="bg-white rounded-xl shadow-md p-4 lg:p-8 md:p-6 article-content">
+                    <!-- Introduction Section -->
+                    <div class="mb-8">
+                        <p class="text-gray-700 mb-4">
+                            Creating a database is an essential step when setting up your application. This guide will walk you through the process of creating a new database in our system, configuring its settings, and getting it ready for use in your applications.
+                        </p>
+                        <div class="bg-primary/10 p-4 rounded-xl">
+                            <h4 class="font-medium text-gray-800 mb-2 flex items-center">
+                                <i class="fas fa-info-circle text-primary mr-2"></i> Note
+                            </h4>
+                            <p class="text-gray-700 text-sm">
+                                Before proceeding, make sure you have the necessary permissions to create a database. If you don't have the right permissions, contact your system administrator.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Prerequisites Section -->
+                    <div id="prerequisites" class="mb-10">
+                        <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Prerequisites</h3>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li>An active account with administrator privileges</li>
+                            <li>Access to the admin dashboard</li>
+                            <li>Knowledge of your desired database settings</li>
+                            <li>Understanding of basic database concepts</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Step by Step Section -->
+                    <div class="mb-10 relative">
+                        <div class="connector-line"></div>
+                        
+                        <!-- Step 1 -->
+                        <div id="step1" class="step-item mb-12">
+                            <div class="step-number">1</div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Log in to the Dashboard</h3>
+                            <p class="text-gray-700 mb-4">
+                                Start by logging into your admin dashboard with your username and password. This will give you access to all the administrative functions, including database management.
+                            </p>
+                            <div class="bg-primary/10 rounded-xl p-4 mb-4">
+                                <p class="text-sm text-gray-700">
+                                    <i class="fas fa-lightbulb text-yellow-500 mr-1"></i>
+                                    <strong>Tip:</strong> Make sure you're using a secure connection (https) when accessing your admin dashboard.
+                                </p>
+                            </div>
+                            <div class="rounded-xl overflow-hidden shadow-md border border-gray-200">
+                                <img src="assets/images/dashboard-login.png" alt="Dashboard Login Screen" class="w-full h-auto">
+                                <div class="bg-gray-50 p-3 text-center text-sm text-gray-500">
+                                    Fig. 1: Admin dashboard login screen
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div id="step2" class="step-item mb-12">
+                            <div class="step-number">2</div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Access Databases Section</h3>
+                            <p class="text-gray-700 mb-4">
+                                Once logged in, navigate to the <span class="tooltip">Databases<span class="tooltip-text">This section contains all database management functions</span></span> tab at the top of the dashboard.
+                            </p>
+                            <p class="text-gray-700 mb-4">
+                                This section contains all tools needed for creating and managing databases within the system. The database section is typically represented with a database icon.
+                            </p>
+                            <div class="rounded-xl overflow-hidden shadow-md border border-gray-200">
+                                <img src="assets/images/database-section.png" alt="Database Section" class="w-full h-auto">
+                                <div class="bg-gray-50 p-3 text-center text-sm text-gray-500">
+                                    Fig. 2: Locating the Databases tab in the dashboard
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div id="step3" class="step-item mb-12">
+                            <div class="step-number">3</div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Create Database</h3>
+                            <p class="text-gray-700 mb-4">
+                                Within the Databases section, look for the "Create Database" button or the "+ New Database" option. Click on this to begin the database creation process.
+                            </p>
+                            <div class="bg-primary/10 rounded-xl p-4 mb-6">
+                                <p class="text-sm text-gray-700">
+                                    <i class="fas fa-info-circle text-primary mr-1"></i>
+                                    <strong>Note:</strong> You may need specific permissions to see the Create Database button. If you don't see it, contact your administrator.
+                                </p>
+                            </div>
+                            
+                            <!-- Code Example -->
+                            <div class="mb-6">
+                                <p class="text-gray-700 mb-2">
+                                    Alternatively, you can create a database using SQL directly if you have access to the SQL console:
+                                </p>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-title">SQL Command</span>
+                                        <button class="code-copy-btn">
+                                            <i class="far fa-copy"></i> Copy
+                                        </button>
+                                    </div>
+                                    <pre class="bg-code-dark text-white p-4 overflow-x-auto text-sm font-mono">
+<span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="variable">your_database_name</span>;
+
+<span class="comment">-- If you need to specify character set and collation:</span>
+<span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="variable">your_database_name</span>
+<span class="keyword">CHARACTER SET</span> utf8mb4
+<span class="keyword">COLLATE</span> utf8mb4_unicode_ci;</pre>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 4 -->
+                        <div id="step4" class="step-item mb-12">
+                            <div class="step-number">4</div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Configure the Database</h3>
+                            <p class="text-gray-700 mb-4">
+                                In the "Create database" section, you'll need to provide some information to set up your database:
+                            </p>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700 mb-6">
+                                <li>
+                                    <strong>Database Name:</strong> Choose a descriptive name for your database. Avoid spaces and special characters.
+                                </li>
+                                <li>
+                                    <strong>Character Set:</strong> The default is usually UTF-8, which supports multiple languages.
+                                </li>
+                                <li>
+                                    <strong>Collation:</strong> This determines how the data is sorted. The default is usually fine for most applications.
+                                </li>
+                                <li>
+                                    <strong>User Access:</strong> Configure which users or roles have access to this database.
+                                </li>
+                            </ul>
+                            
+                            <div class="rounded-xl overflow-hidden shadow-md border border-gray-200 mb-6">
+                                <img src="assets/images/database-config.png" alt="Database Configuration" class="w-full h-auto">
+                                <div class="bg-gray-50 p-3 text-center text-sm text-gray-500">
+                                    Fig. 3: Database configuration form
+                                </div>
+                            </div>
+                            
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r">
+                                <div class="flex">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-sm font-medium text-yellow-800">Important</h3>
+                                        <div class="text-sm text-yellow-700">
+                                            <p>Choose a secure password for your database that includes a mix of letters, numbers, and special characters. Do not use easily guessable passwords.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 5 -->
+                        <div id="step5" class="step-item">
+                            <div class="step-number">5</div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Verify and Use</h3>
+                            <p class="text-gray-700 mb-4">
+                                After creating your database, you should verify that it was successfully created and is accessible.
+                            </p>
+                            <ol class="list-decimal pl-6 space-y-2 text-gray-700 mb-6">
+                                <li>Check that the database appears in your database list</li>
+                                <li>Try connecting to it using your preferred database client</li>
+                                <li>Verify that you can create tables and perform basic operations</li>
+                            </ol>
+                            
+                            <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-r mb-6">
+                                <div class="flex">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-400"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-sm font-medium text-green-800">Success</h3>
+                                        <div class="text-sm text-green-700">
+                                            <p>Your database is now ready to use! You can start creating tables and implementing your database schema.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Connection String Example -->
+                            <div class="mb-6">
+                                <p class="text-gray-700 mb-2">
+                                    Here's an example of a connection string you might use to connect to your new database:
+                                </p>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-title">Connection String Example</span>
+                                        <button class="code-copy-btn">
+                                            <i class="far fa-copy"></i> Copy
+                                        </button>
+                                    </div>
+                                    <pre class="bg-code-dark text-white p-4 overflow-x-auto text-sm font-mono">
+<span class="string">"Server=myserver;Database=your_database_name;User Id=your_username;Password=your_password;"</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Troubleshooting Section -->
+                    <div id="troubleshooting" class="mb-6 md:mb-10">
+                        <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Troubleshooting</h3>
+                        <p class="text-gray-700 mb-4">
+                            If you encounter any issues while creating your database, check these common problems and solutions:
+                        </p>
+                        
+                        <div class="space-y-4 mb-6">
+                            <!-- Problem 1 -->
+                            <div class="rounded-lg border border-gray-200 overflow-hidden">
+                                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                                    <h3 class="font-medium text-gray-800">Permission Denied Error</h3>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-gray-700 text-sm mb-2">
+                                        <strong>Problem:</strong> You receive an error saying you don't have permission to create a database.
+                                    </p>
+                                    <p class="text-gray-700 text-sm">
+                                        <strong>Solution:</strong> Contact your system administrator to grant you the necessary permissions. You need CREATE DATABASE privileges to perform this action.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Problem 2 -->
+                            <div class="rounded-lg border border-gray-200 overflow-hidden">
+                                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                                    <h3 class="font-medium text-gray-800">Database Name Already Exists</h3>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-gray-700 text-sm mb-2">
+                                        <strong>Problem:</strong> You get an error saying the database name is already in use.
+                                    </p>
+                                    <p class="text-gray-700 text-sm">
+                                        <strong>Solution:</strong> Choose a different name for your database. Database names must be unique within the server.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Problem 3 -->
+                            <div class="rounded-lg border border-gray-200 overflow-hidden">
+                                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                                    <h3 class="font-medium text-gray-800">Connection Issues</h3>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-gray-700 text-sm mb-2">
+                                        <strong>Problem:</strong> You've created the database but can't connect to it.
+                                    </p>
+                                    <p class="text-gray-700 text-sm">
+                                        <strong>Solution:</strong> Verify that the database user has been granted access to the new database. Check your connection string parameters, especially the server name, username, and password.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Article Feedback Section -->
+                    <div class="border-t border-gray-200 pt-4 md:pt-8">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Was this article helpful?</h3>
+                        <div class="flex space-x-3 mb-6">
+                            <button class="feedback-btn bg-green-50 hover:bg-green-100 text-green-700 py-2 px-4 rounded-lg">
+                                <i class="far fa-thumbs-up mr-1"></i> Yes, it helped
+                            </button>
+                            <button class="feedback-btn bg-red-50 hover:bg-red-100 text-red-700 py-2 px-4 rounded-lg">
+                                <i class="far fa-thumbs-down mr-1"></i> No, I need more help
+                            </button>
+                        </div>
+                        
+                        <div class="bg-primary/10 rounded-xl p-4 md:p-6">
+                            <h4 class="font-bold text-gray-800 mb-3">Still have questions?</h4>
+                            <p class="text-gray-700 text-sm mb-4">
+                                If you couldn't find the information you were looking for, our support team is here to help.
+                            </p>
+                            <a href="index.html" class="btn transition-colors duration-300 submit-btn">
+                                <i class="fas fa-ticket-alt mr-2"></i> Create a Support Ticket
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Sidebar -->
+            <div class="w-full lg:w-1/4">
+                <!-- Related Articles -->
+                <div class="bg-white rounded-xl shadow-md p-5 mb-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-link text-primary mr-2"></i> Related Articles
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="#" class="related-card block rounded-lg p-4">
+                            <h4 class="font-medium text-gray-800 mb-1 hover:text-primary transition-colors duration-300">How to Connect to Your Database</h4>
+                            <p class="text-gray-500 text-sm">Learn how to establish a connection to your database</p>
+                        </a>
+                        <a href="#" class="related-card block rounded-lg p-4">
+                            <h4 class="font-medium text-gray-800 mb-1 hover:text-primary transition-colors duration-300">Database Backup & Restore</h4>
+                            <p class="text-gray-500 text-sm">Protect your data with regular backups</p>
+                        </a>
+                        <a href="#" class="related-card block rounded-lg p-4">
+                            <h4 class="font-medium text-gray-800 mb-1 hover:text-primary transition-colors duration-300">Managing Database Users</h4>
+                            <p class="text-gray-500 text-sm">Control who has access to your database</p>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Popular Tags -->
+                <div class="bg-white rounded-xl shadow-md p-5">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-tags text-primary mr-2"></i> Tags
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" class="bg-primary/10 hover:bg-secondary-dark hover:text-white text-primary px-3 py-1 rounded text-sm transition-colors duration-300">database</a>
+                        <a href="#" class="bg-primary/10 hover:bg-secondary-dark hover:text-white text-primary px-3 py-1 rounded text-sm transition-colors duration-300">setup</a>
+                        <a href="#" class="bg-primary/10 hover:bg-secondary-dark hover:text-white text-primary px-3 py-1 rounded text-sm transition-colors duration-300">beginner</a>
+                        <a href="#" class="bg-primary/10 hover:bg-secondary-dark hover:text-white text-primary px-3 py-1 rounded text-sm transition-colors duration-300">configuration</a>
+                        <a href="#" class="bg-primary/10 hover:bg-secondary-dark hover:text-white text-primary px-3 py-1 rounded text-sm transition-colors duration-300">admin</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <!-- Footer -->
+                <footer class="mt-8 md:mt-12 text-center text-gray-600 text-sm">
+                    <p>© 2025 DASH Support System. All rights reserved.</p>
+                    <div class="mt-2 flex flex-wrap justify-center space-x-4">
+                        <a href="#" class="hover:text-primary transition-colors duration-200">Privacy Policy</a>
+                        <a href="#" class="hover:text-primary transition-colors duration-200">Terms of Service</a>
+                        <a href="contact.html" class="hover:text-primary transition-colors duration-200">Contact Us</a>
+                    </div>
+                </footer>
+    </div>
+    
+  
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    if (mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.remove('hidden');
+                        mobileMenuButton.innerHTML = '<i class="fas fa-times text-2xl"></i>';
+                    } else {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+                    }
+                });
+            }
+            
+            // Code copy buttons
+            const copyButtons = document.querySelectorAll('.code-copy-btn');
+            copyButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const codeBlock = this.closest('.code-block').querySelector('pre');
+                    const textToCopy = codeBlock.textContent;
+                    
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        // Change button text temporarily
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                        }, 2000);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

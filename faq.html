@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Support Ticket | WorkDo Dash</title>
+    <link rel="icon" href="assets/images/favicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="assets/js/tailwind.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#38bdf8',  // sky-400
+                            DEFAULT: '#14B8A6', // sky-700
+                            dark: ':#068c7d',   // sky-800
+                        },
+                        secondary: {
+                            light: '#14b8a629',  // sky-100
+                            DEFAULT: '#bae6fd', // sky-200
+                            dark: '#068c7d',   // sky-300
+                        },
+                        accent: {
+                            DEFAULT: '#14B8A6', // orange-500
+                            dark: '#ea580c',    // orange-600
+                        }
+                    },
+                    animation: {
+                        'fadeIn': 'fadeIn 0.5s ease-in-out',
+                        'slideIn': 'slideIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <!-- Custom CSS -->
+
+    <style>
+        /* Custom animated background */
+        .animated-bg {
+            background-color: #14b8a614; /* Slate-100 background */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230284c7' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            position: relative;
+        }
+        
+        .faq-item {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .faq-question {
+            cursor: pointer;
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            padding: 0 1.25rem;
+            border-top: 0px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 1.25rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .faq-item.active .faq-question {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .faq-item:hover:not(.active) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .faq-toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-toggle-icon {
+            transform: rotate(45deg);
+        }
+        
+        .highlight {
+            position: relative;
+            background: #14b8a629;
+            padding: 0 5px;
+            border-radius: 4px;
+        }
+        
+        .search-input {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .search-input:focus {
+            border-color: #14B8A6;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+        }
+        
+        .category-filter {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .category-filter.active {
+            background: #14B8A6;
+            color: white;
+        }
+        
+        .category-filter:hover:not(.active) {
+            background: #e0f2fe;
+            color: #14B8A6;
+        }
+        
+        .quick-action-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .quick-action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #bae6fd;
+        }
+        
+        .quick-action-card:hover .icon-container {
+            background: #14B8A6;
+            color: white;
+        }
+        
+        .icon-container {
+            transition: all 0.3s ease;
+        }
+        
+        .faq-categories-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        /* Tooltip style */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 180px;
+            background-color: #1e293b;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+        }
+
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1e293b transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        @media (max-width: 767px) {
+            .faq-question,
+            .faq-item.active .faq-answer{
+                padding: 1rem;
+            }
+        }
+       
+        
+    
+    </style>
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+<body class="relative min-h-screen overflow-x-hidden animated-bg">
+    <div class="container mx-auto px-4 py-4 max-w-7xl relative z-10">
+        <!-- Header -->
+        <header class="mb-10 md:mb-16 site-header">
+            <!-- Top Header with Logo and Action Buttons -->
+            <div class="bg-primary text-white py-3 px-4 rounded-xl shadow-lg mb-4">
+                <div class="flex flex-wrap justify-between items-center">
+                    <!-- Logo -->
+                     <h1>
+                    <a href="index.html" class="flex items-center space-x-3 lg:max-w-none max-w-[120px]">
+                        <img src="assets/images/logo.png" alt="">
+                    </a>
+                </h1>
+                    <div class="main-nav hidden md:block ">
+                        <nav class="flex flex-wrap justify-center md:gap-3 lg:gap-4">
+                            <a href="index.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Create Ticket
+                            </a>
+                            <a href="search-ticket.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Search Tickets
+                            </a>
+                            <a href="knowledge.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Knowledge Base
+                            </a>
+                            <a href="faq.html"
+                                class="text-white transition font-medium duration-300 lg:text-lg flex items-center hover:text-gray-800">
+                                FAQ
+                            </a>
+                        </nav>
+                    </div>
+                    <!-- Action Buttons (visible only on desktop) -->
+                    <div class="hidden md:flex items-center space-x-3 header-right-color">
+                        <a href="login.html"
+                            class="btn btn-white bg-white text-gray-700 flex items-center transition duration-300 btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span class="m-0">Sign In</span>
+                        </a>
+                        <a href="contact.html"
+                            class="btn btn-white bg-white text-gray-700 flex items-center transition duration-300 btn">
+                            <i class="fas fa-headset"></i>
+                            <span class="m-0">Contact</span>
+                        </a>
+                    </div>
+
+                    <!-- Mobile Menu Button (visible only on mobile) -->
+                    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (initially hidden) -->
+            <div id="mobile-menu" class="bg-white rounded-xl shadow-lg mb-4 p-4 hidden animate-fadeIn md:hidden">
+                <nav class="flex flex-col space-y-2">
+                    <a href="index.html" class="text-primary rounded-lg transition duration-300 flex items-center">
+                        <i class="fas fa-ticket-alt mr-2"></i> Create Ticket
+                    </a>
+                    <a href="search-ticket.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-search mr-2"></i> Search Tickets
+                    </a>
+                    <a href="knowledge.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-book mr-2"></i> Knowledge Base
+                    </a>
+                    <a href="faq.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-question-circle mr-2"></i> FAQ
+                    </a>
+
+                    <div class="flex flex-wrap justify-center items-center border-t pt-3 gap-3">
+                        <a href="login.html" class="btn transition duration-300 flex items-center">
+                            <i class="fas fa-user-circle"></i> Sign In
+                        </a>
+                        <a href="contact.html" class="btn transition duration-300 flex items-center">
+                            <i class="fas fa-headset"></i> Contact Support
+                        </a>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Main Navigation (desktop only) -->
+
+
+
+        </header>
+        <!-- FAQ Hero Section -->
+        <div class="mb-8 md:mb-12 relative">
+            <div class="bg-primary rounded-2xl overflow-hidden">
+                <div class="py-6 px-4 md:p-12 lg:p-14 relative z-10">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <span class="inline-block bg-white/20 text-white text-sm px-4 py-1 rounded-full backdrop-blur-sm mb-3 md:mb-4">
+                            <i class="fas fa-question-circle mr-2"></i> Frequently Asked Questions
+                        </span>
+                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-white">How can we help you?</h2>
+                        <p class="text-white mb-4 md:mb-6">Find answers to the most common questions about our support system and services</p>
+                        
+                        <!-- Search Bar -->
+                        <div class="relative max-w-2xl mx-auto">
+                            <input 
+                                type="text" 
+                                id="faq-search" 
+                                placeholder="Search for questions or keywords..." 
+                                class="search-input w-full p-2 md:p-3 rounded-lg shadow-md focus:outline-none text-gray-700"
+                            >
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                        <defs>
+                            <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <circle cx="2" cy="2" r="1" fill="white"></circle>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#dots)"></rect>
+                    </svg>
+                </div>
+            </div>
+            
+           
+        </div>
+     
+        
+        <!-- FAQ Accordion -->
+        <div id="all-faqs" class="mb-8 md:mb-12">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="lg:text-3xl md:text-2xl text-xl font-bold mb-4 md:mb-6 text-center">
+                  Frequently Asked Questions
+                </h2>
+                
+                <!-- FAQ Item 1 -->
+                <div class="faq-item active">
+                    <div class="faq-question gap-2">
+                        <div class="flex items-center">
+                            <span class="text-lg md:text-xl font-medium">01</span>
+                            <span class="ml-4">Why do we use the DASH Support System?</span>
+                        </div>
+                        <div class="faq-toggle-icon text-lg md:text-xl">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">
+                            DASH Support is a comprehensive support ticket platform that provides an intuitive and engaging user experience. It offers multiple features like:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 mt-3 text-gray-700">
+                            <li>Easy ticket creation and tracking</li>
+                            <li>Comprehensive knowledge base with detailed articles</li>
+                            <li>Real-time updates on ticket status</li>
+                            <li><span class="highlight">Fast response times</span> with dedicated support agents</li>
+                            <li>File attachment support for better issue description</li>
+                        </ul>
+                        <p class="mt-3 text-gray-700">
+                            Our platform is designed to streamline the support process and ensure that your issues are resolved as quickly and efficiently as possible.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <div class="faq-question gap-2">
+                        <div class="flex items-center">
+                            <span class="text-lg md:text-xl font-medium">02</span>
+                            <span class="ml-4">How do I create a new support ticket?</span>
+                        </div>
+                        <div class="faq-toggle-icon text-lg md:text-xl">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">
+                            Creating a new support ticket is simple and straightforward:
+                        </p>
+                        <ol class="list-decimal list-inside space-y-2 mt-3 text-gray-700">
+                            <li>Navigate to the <a href="index.html" class="text-primary hover:underline">Create Ticket</a> page</li>
+                            <li>Fill in your contact information (name, email, etc.)</li>
+                            <li>Select the appropriate category for your issue</li>
+                            <li>Provide a detailed description of your problem</li>
+                            <li>Attach any relevant files or screenshots (optional)</li>
+                            <li>Click the "Submit" button to create your ticket</li>
+                        </ol>
+                        <p class="mt-3 text-gray-700">
+                            After submission, you'll receive a confirmation email with your ticket reference number, which you can use to track the status of your request.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <div class="faq-question gap-2">
+                        <div class="flex items-center">
+                            <span class="text-lg md:text-xl font-medium">03</span>
+                            <span class="ml-4">How can I check the status of my existing ticket?</span>
+                        </div>
+                        <div class="faq-toggle-icon text-lg md:text-xl">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">
+                            You can check the status of your ticket in two ways:
+                        </p>
+                        <div class="bg-primary/10 p-4 rounded-lg mt-3 border-l-4 border-primary">
+                            <h4 class="font-medium text-gray-800 mb-2">Option 1: Using the ticket reference number</h4>
+                            <ol class="list-decimal list-inside text-gray-700 ml-4">
+                                <li>Go to the <a href="search-ticket.html" class="text-primary hover:underline">Search Tickets</a> page</li>
+                                <li>Enter your ticket reference number (format: TKT-XXXXXX)</li>
+                                <li>Provide the email address used when creating the ticket</li>
+                                <li>Click the "Search" button to view your ticket details</li>
+                            </ol>
+                        </div>
+                        <div class="bg-primary/10 p-4 rounded-lg mt-3 border-l-4 border-primary">
+                            <h4 class="font-medium text-gray-800 mb-2">Option 2: Via your account (for registered users)</h4>
+                            <ol class="list-decimal list-inside text-gray-700 ml-4">
+                                <li>Sign in to your account</li>
+                                <li>Navigate to the "My Tickets" section</li>
+                                <li>View a list of all your submitted tickets and their statuses</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <div class="faq-question gap-2">
+                        <div class="flex items-center">
+                            <span class="text-lg md:text-xl font-medium">04</span>
+                            <span class="ml-4">What are the available ticket priorities?</span>
+                        </div>
+                        <div class="faq-toggle-icon text-lg md:text-xl">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">
+                            We offer several priority levels for tickets, each with different response times:
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-red-200">
+                                <div class="flex items-center mb-2">
+                                    <span class="inline-block w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                                    <h4 class="font-medium text-gray-800">Critical</h4>
+                                </div>
+                                <p class="text-sm text-gray-600">
+                                    System-wide issues affecting all users. Response time: <span class="font-medium">1-2 hours</span>.
+                                </p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-orange-200">
+                                <div class="flex items-center mb-2">
+                                    <span class="inline-block w-3 h-3 rounded-full bg-orange-500 mr-2"></span>
+                                    <h4 class="font-medium text-gray-800">High</h4>
+                                </div>
+                                <p class="text-sm text-gray-600">
+                                    Major functionality issues. Response time: <span class="font-medium">4-6 hours</span>.
+                                </p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-blue-200">
+                                <div class="flex items-center mb-2">
+                                    <span class="inline-block w-3 h-3 rounded-full bg-blue-500 mr-2"></span>
+                                    <h4 class="font-medium text-gray-800">Medium</h4>
+                                </div>
+                                <p class="text-sm text-gray-600">
+                                    Regular issues and questions. Response time: <span class="font-medium">24 hours</span>.
+                                </p>
+                            </div>
+                        </div>
+                        <p class="mt-3 text-gray-700">
+                            For the fastest response, please select the appropriate priority level based on the actual impact of your issue.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <div class="faq-question gap-2">
+                        <div class="flex items-center">
+                            <span class="text-lg md:text-xl font-medium">05</span>
+                            <span class="ml-4">What file types can I attach to my support ticket?</span>
+                        </div>
+                        <div class="faq-toggle-icon text-lg md:text-xl">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">
+                            You can attach the following file types to your support tickets:
+                        </p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
+                            <div class="flex items-center bg-white p-3 rounded border">
+                                <i class="far fa-file-image text-primary text-xl mr-2"></i>
+                                <span class="text-sm">Images (.jpg, .png, .gif)</span>
+                            </div>
+                            <div class="flex items-center bg-white p-3 rounded border">
+                                <i class="far fa-file-pdf text-primary text-xl mr-2"></i>
+                                <span class="text-sm">Documents (.pdf, .doc, .docx)</span>
+                            </div>
+                            <div class="flex items-center bg-white p-3 rounded border">
+                                <i class="far fa-file-excel text-primary text-xl mr-2"></i>
+                                <span class="text-sm">Spreadsheets (.xls, .xlsx)</span>
+                            </div>
+                            <div class="flex items-center bg-white p-3 rounded border">
+                                <i class="far fa-file-archive text-primary text-xl mr-2"></i>
+                                <span class="text-sm">Archives (.zip, .rar)</span>
+                            </div>
+                        </div>
+                        <div class="mt-3 bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm text-yellow-800">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="font-medium">Important Note</h3>
+                                    <p>Maximum file size per attachment is 10MB. For security reasons, executable files (.exe, .bat, etc.) are not permitted.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 6 -->
+                <div class="faq-item">
+                    <div class="faq-question gap-2">
+                        <div class="flex items-center">
+                            <span class="text-lg md:text-xl font-medium">06</span>
+                            <span class="ml-4">How do I reset my password?</span>
+                        </div>
+                        <div class="faq-toggle-icon text-lg md:text-xl">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">
+                            If you've forgotten your password, you can reset it by following these steps:
+                        </p>
+                        <ol class="list-decimal list-inside space-y-2 mt-3 text-gray-700">
+                            <li>Click on the "Sign In" button at the top of the page</li>
+                            <li>Select the "Forgot Password?" link below the login form</li>
+                            <li>Enter your email address</li>
+                            <li>Check your email for a password reset link</li>
+                            <li>Click the link and follow the instructions to create a new password</li>
+                        </ol>
+                        <div class="tooltip mt-3">
+                            <p class="text-gray-700">
+                                <i class="fas fa-info-circle text-primary mr-1"></i>
+                                Password reset links expire after 24 hours. If your link has expired, you'll need to request a new one.
+                                <span class="tooltip-text">For security reasons, we ensure that password reset links can't be used indefinitely.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Still Have Questions Section -->
+        <div class="mb-12">
+            <div class="bg-primary rounded-2xl shadow-xl overflow-hidden relative">
+                <div class="absolute inset-0 opacity-10">
+                    <svg width="100%" height="100%">
+                        <defs>
+                            <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="white" stroke-width="0.5"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#smallGrid)"/>
+                    </svg>
+                </div>
+                
+                <div class="flex flex-col md:flex-row items-center px-4 py-6 md:p-8 lg:p-12 relative">
+                    <div class="w-full md:w-2/3 text-white mb-6 md:mb-0 md:pr-12 text-center md:text-left">
+                        <h2 class="lg:text-3xl md:text-2xl text-xl font-bold mb-3 md:mb-4">Still Have Questions?</h2>
+                        <p class="text-white mb-4 md:mb-6">
+                            Can't find the answer you're looking for? Our support team is ready to help you with any issues or concerns you might have.
+                        </p>
+                        <div class="flex flex-wrap gap-3 md:gap-4 justify-center md:justify-start">
+                            <a href="index.html" class="btn btn-white transition-all duration-300">
+                                <i class="fas fa-ticket-alt"></i> Create Support Ticket
+                            </a>
+                            <a href="knowledge.html" class="btn border-0 bg-white/20 hover:bg-white/30 text-white transition-all duration-300">
+                                <i class="fas fa-book"></i> Browse Knowledge Base
+                            </a>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 flex justify-center">
+                        <div class="relative w-full">
+                            <img src="assets/images/faq-image.svg" alt="" class="w-full h-full">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="mt-8 md:mt-12 text-center text-gray-600 text-sm">
+            <p>© 2025 DASH Support System. All rights reserved.</p>
+            <div class="mt-2 flex flex-wrap justify-center space-x-4">
+                <a href="#" class="hover:text-primary transition-colors duration-200">Privacy Policy</a>
+                <a href="#" class="hover:text-primary transition-colors duration-200">Terms of Service</a>
+                <a href="contact.html" class="hover:text-primary transition-colors duration-200">Contact Us</a>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Footer -->
+    
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    if (mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.remove('hidden');
+                        mobileMenuButton.innerHTML = '<i class="fas fa-times text-2xl"></i>';
+                    } else {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+                    }
+                });
+            }
+            
+            // FAQ accordion functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('active');
+                    
+                    // Close all items
+                    faqItems.forEach(faqItem => {
+                        faqItem.classList.remove('active');
+                    });
+                    
+                    // If the clicked item wasn't open, open it
+                    if (!isOpen) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+            
+            // Category filter functionality
+            const categoryFilters = document.querySelectorAll('.category-filter');
+            
+            categoryFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    // Remove active class from all filters
+                    categoryFilters.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked filter
+                    this.classList.add('active');
+                    
+                    // Here you would typically filter the FAQ items
+                    // For demo purposes, we're just toggling the active class
+                });
+            });
+            
+            // FAQ search functionality
+            const searchInput = document.getElementById('faq-search');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                if (searchTerm.length > 2) {
+                    faqItems.forEach(item => {
+                        const questionText = item.querySelector('.faq-question span:last-child').textContent.toLowerCase();
+                        const answerText = item.querySelector('.faq-answer').textContent.toLowerCase();
+                        
+                        if (questionText.includes(searchTerm) || answerText.includes(searchTerm)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                } else {
+                    // If search term is too short, show all items
+                    faqItems.forEach(item => {
+                        item.style.display = 'block';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Support Ticket | WorkDo Dash</title>
+    <link rel="icon" href="assets/images/favicon.png">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for icons -->
+     <link rel="stylesheet" href="assets/css/all.min.css">
+    <!-- Custom CSS -->
+    <script src="assets/js/tailwind.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#38bdf8',  // sky-400
+                            DEFAULT: '#14B8A6', // sky-700
+                            dark: ':#068c7d',   // sky-800
+                        },
+                        secondary: {
+                            light: '#14b8a629',  // sky-100
+                            DEFAULT: '#bae6fd', // sky-200
+                            dark: '#068c7d',   // sky-300
+                        },
+                        accent: {
+                            DEFAULT: '#14B8A6', // orange-500
+                            dark: '#ea580c',    // orange-600
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-light': 'pulse-light 3s ease-in-out infinite',
+                        'fadeIn': 'fadeIn 0.5s ease-out',
+                        'slideIn': 'slideIn 0.5s ease-out',
+                        'shimmer': 'shimmer 2.5s infinite',
+                        'shake': 'shake 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        'pulse-light': {
+                            '0%, 100%': { opacity: 0.6 },
+                            '50%': { opacity: 0.9 }
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: 0 },
+                            '100%': { opacity: 1 }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateY(20px)', opacity: 0 },
+                            '100%': { transform: 'translateY(0)', opacity: 1 }
+                        },
+                        shake: {
+                            '0%, 100%': { transform: 'translateX(0)' },
+                            '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-2px)' },
+                            '20%, 40%, 60%, 80%': { transform: 'translateX(2px)' }
+                        }
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom JavaScript -->
+    <script src="assets/js/custom.js" defer></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+
+</head>
+
+<body class=" min-h-screen font-sans relative overflow-x-hidden animated-bg">
+
+    <div class="container mx-auto px-4 py-4 max-w-7xl relative z-10">
+        <!-- Header -->
+        <header class="mb-10 md:mb-16 site-header">
+            <!-- Top Header with Logo and Action Buttons -->
+            <div class="bg-primary text-white py-3 px-4 rounded-xl shadow-lg mb-4">
+                <div class="flex flex-wrap justify-between items-center">
+                    <!-- Logo -->
+                     <h1>
+                    <a href="index.html" class="flex items-center space-x-3 lg:max-w-none max-w-[120px]">
+                        <img src="assets/images/logo.png" alt="">
+                    </a>
+                </h1>
+                    <div class="main-nav hidden md:block ">
+                        <nav class="flex flex-wrap justify-center md:gap-3 lg:gap-4">
+                            <a href="index.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Create Ticket
+                            </a>
+                            <a href="search-ticket.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Search Tickets
+                            </a>
+                            <a href="knowledge.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Knowledge Base
+                            </a>
+                            <a href="faq.html"
+                                class="text-white transition font-medium duration-300 lg:text-lg flex items-center hover:text-gray-800">
+                                FAQ
+                            </a>
+                        </nav>
+                    </div>
+                    <!-- Action Buttons (visible only on desktop) -->
+                    <div class="hidden md:flex items-center space-x-3 header-right-color">
+                        <a href="login.html"
+                            class="btn btn-white bg-white text-gray-700 flex items-center transition duration-300 btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span class="m-0">Sign In</span>
+                        </a>
+                        <a href="contact.html"
+                            class="btn btn-white bg-white text-gray-700 flex items-center transition duration-300 btn">
+                            <i class="fas fa-headset"></i>
+                            <span class="m-0">Contact</span>
+                        </a>
+                    </div>
+
+                    <!-- Mobile Menu Button (visible only on mobile) -->
+                    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (initially hidden) -->
+            <div id="mobile-menu" class="bg-white rounded-xl shadow-lg mb-4 p-4 hidden animate-fadeIn md:hidden">
+                <nav class="flex flex-col space-y-2">
+                    <a href="index.html" class="text-primary rounded-lg transition duration-300 flex items-center">
+                        <i class="fas fa-ticket-alt mr-2"></i> Create Ticket
+                    </a>
+                    <a href="search-ticket.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-search mr-2"></i> Search Tickets
+                    </a>
+                    <a href="knowledge.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-book mr-2"></i> Knowledge Base
+                    </a>
+                    <a href="faq.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-question-circle mr-2"></i> FAQ
+                    </a>
+
+                    <div class="flex flex-wrap justify-center items-center border-t pt-3 gap-3">
+                        <a href="login.html" class="btn transition duration-300 flex items-center">
+                            <i class="fas fa-user-circle"></i> Sign In
+                        </a>
+                        <a href="contact.html" class="btn transition duration-300 flex items-center">
+                            <i class="fas fa-headset"></i> Contact Support
+                        </a>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Main Navigation (desktop only) -->
+
+
+
+        </header>
+
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Left Sidebar with Information -->
+            <div class="lg:w-1/4">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-with-glow mb-6 animate-fadeIn">
+                    <div class="bg-primary py-3 px-4">
+                        <h3 class="text-white font-medium text-lg md:text-xl">Support Information</h3>
+                    </div>
+                    <div class="p-4">
+                        <!-- Support illustration -->
+                        <div class="mb-4 text-center rounded-lg overflow-hidden">
+                            <img src="assets/images/svg/support-illustration.svg" alt="Support"
+                                class="mx-auto w-full h-full">
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-secondary-light p-3 rounded-lg flex items-start">
+                                <i class="fas fa-info-circle text-primary mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Response Time</h4>
+                                    <p class="text-sm text-gray-600">We typically respond within 24 hours on business
+                                        days.</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-secondary-light p-3 rounded-lg flex items-start">
+                                <i class="fas fa-clock text-primary mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Support Hours</h4>
+                                    <p class="text-sm text-gray-600">Monday - Friday: 9AM - 6PM ET</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-secondary-light p-3 rounded-lg flex items-start">
+                                <i class="fas fa-phone-alt text-primary mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Phone Support</h4>
+                                    <p class="text-sm text-gray-600">Premium customers: <br>+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-with-glow animate-fadeIn"
+                    style="animation-delay: 0.2s;">
+                    <div class="bg-accent py-3 px-4">
+                        <h3 class="text-white font-medium text-lg md:text-xl ">Quick Links</h3>
+                    </div>
+
+                    <div class="quick-links-wrp">
+                        <a href="#"
+                            class="block p-4 m-0 hover:bg-secondary-light transition duration-200 text-gray-700">
+                            <i class="fas fa-book-open mr-2 text-accent"></i> User Guides
+                        </a>
+                        <a href="#"
+                            class="block p-4 m-0 hover:bg-secondary-light transition duration-200 text-gray-700">
+                            <i class="fas fa-video mr-2 text-accent"></i> Video Tutorials
+                        </a>
+                        <a href="#"
+                            class="block p-4 m-0 hover:bg-secondary-light transition duration-200 text-gray-700">
+                            <i class="fas fa-lightbulb mr-2 text-accent"></i> Tips & Tricks
+                        </a>
+                        <a href="#"
+                            class="block p-4 m-0 hover:bg-secondary-light transition duration-200 text-gray-700">
+                            <i class="fas fa-code mr-2 text-accent"></i> API Documentation
+                        </a>
+                        <a href="#"
+                            class="block p-4 m-0 hover:bg-secondary-light transition duration-200 text-gray-700">
+                            <i class="fas fa-comments mr-2 text-accent"></i> Community Forums
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Form Card -->
+            <div class="lg:w-3/4">
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden main-card animate-fadeIn"
+                    style="animation-delay: 0.3s;">
+                    <!-- Card Header -->
+                    <div class="bg-primary p-4 md:py-5 md:px-6">
+                        <h2 class="text-white text-xl md:text-2xl lg:text-3xl font-semibold text-center">Create Support Ticket</h2>
+                    </div>
+
+                    <!-- Form Container -->
+                    <form class="p-4 md:p-8">
+                        <!-- First Row - Name and Email -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                            <!-- Name Field -->
+                            <div class="group">
+                                <label for="name"
+                                    class="block text-gray-700 font-medium mb-2 group-hover:text-primary transition duration-200">Name</label>
+                                <div class="input-wrapper relative">
+
+                                    <input type="text" id="name" placeholder="Enter Your Name"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200 form-input-enhanced"
+                                        required>
+
+                                </div>
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="group">
+                                <label for="email"
+                                    class="block text-gray-700 font-medium mb-2 group-hover:text-primary transition duration-200">Email</label>
+                                <div class="input-wrapper relative">
+
+                                    <input type="email" id="email" placeholder="Enter Your Email"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200 form-input-enhanced"
+                                        required>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Second Row - Category and Subject -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                            <!-- Category Dropdown -->
+                            <div class="group">
+                                <label for="category"
+                                    class="block text-gray-700 font-medium mb-2 group-hover:text-primary transition duration-200">Category</label>
+                                <div class="input-wrapper relative">
+
+                                    <select id="category"
+                                        class="w-full input-select px-4 py-3 pr-10 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200 form-input-enhanced"
+                                        required>
+                                        <option value="" disabled selected>Select Category</option>
+                                        <option value="technical">Technical Support</option>
+                                        <option value="billing">Billing Inquiry</option>
+                                        <option value="feature">Feature Request</option>
+                                        <option value="other">Other</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <!-- Subject Field -->
+                            <div class="group">
+                                <label for="subject"
+                                    class="block text-gray-700 font-medium mb-2 group-hover:text-primary transition duration-200">Subject</label>
+                                <div class="input-wrapper relative">
+
+                                    <input type="text" id="subject" placeholder="Enter Subject"
+                                        class="w-full  px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200 form-input-enhanced"
+                                        required>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Priority Level Slider -->
+                        <div class="mb-6">
+                            <label for="priority-level" class="block text-gray-700 font-medium mb-2">Priority
+                                Level</label>
+                            <div class="flex items-center gap-4">
+                                <input type="range" id="priority-level" min="1" max="4" value="2"
+                                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary form-input-enhanced">
+                                <span id="priority-value" class="font-semibold text-lg text-yellow-500">Medium</span>
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-500 mt-1 px-1">
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                                <span>Urgent</span>
+                            </div>
+                        </div>
+
+                        <!-- Description Field with Rich Text Editor -->
+                        <div class="mb-6">
+                            <label for="description" class="block text-gray-700 font-medium mb-2">Description</label>
+
+                            <!-- Rich Text Editor Toolbar -->
+                            <div
+                                class="bg-gray-50 border border-gray-300 border-b-0 rounded-t-lg flex flex-wrap p-2 gap-1 rich-text-toolbar">
+                                <!-- Text Formatting Options -->
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition"
+                                    title="Font Style" data-command="Font Style">
+                                    <i class="fas fa-font"></i>
+                                </button>
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition" title="Bold"
+                                    data-command="Bold">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition" title="Italic"
+                                    data-command="Italic">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition" title="Underline"
+                                    data-command="Underline">
+                                    <i class="fas fa-underline"></i>
+                                </button>
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition"
+                                    title="Align Left" data-command="Align Left">
+                                    <i class="fas fa-align-left"></i>
+                                </button>
+
+                                <!-- Divider -->
+                                <div class="h-6 w-px bg-gray-300 mx-1"></div>
+
+                                <!-- Font Options -->
+                                <div class="relative inline-block">
+                                    <button type="button"
+                                        class="p-2 rounded hover:bg-gray-200 transition flex items-center"
+                                        title="Font Family" data-command="Font Family">
+                                        <span class="text-sm mr-1">Sans-serif</span>
+                                        <i class="fas fa-caret-down"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Divider -->
+                                <div class="h-6 w-px bg-gray-300 mx-1"></div>
+
+                                <!-- Color Options -->
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition"
+                                    title="Text Color" data-command="Text Color">
+                                    <i class="fas fa-palette"></i>
+                                </button>
+
+                                <!-- Divider -->
+                                <div class="h-6 w-px bg-gray-300 mx-1"></div>
+
+                                <!-- List Options -->
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition"
+                                    title="Bullet List" data-command="Bullet List">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition"
+                                    title="Numbered List" data-command="Numbered List">
+                                    <i class="fas fa-list-ol"></i>
+                                </button>
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition" title="Indent"
+                                    data-command="Indent">
+                                    <i class="fas fa-indent"></i>
+                                </button>
+
+                                <!-- Divider -->
+                                <div class="h-6 w-px bg-gray-300 mx-1"></div>
+
+                                <!-- Special Options -->
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition"
+                                    title="Insert Link" data-command="Insert Link">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                                <button type="button" class="p-2 rounded hover:bg-gray-200 transition"
+                                    title="Insert Code" data-command="Insert Code">
+                                    <i class="fas fa-code"></i>
+                                </button>
+                            </div>
+
+                            <!-- Text Area -->
+                            <textarea id="description" rows="8" placeholder="Please describe your issue in detail..."
+                                class="w-full px-4 py-3 border border-gray-300 rounded-b-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200 form-input-enhanced"
+                                required></textarea>
+                        </div>
+
+                        <!-- Attachments -->
+                        <div class="mb-8">
+                            <label class="block text-gray-700 font-medium mb-2">Attachments <span
+                                    class="text-sm text-gray-500">(You can select multiple files)</span></label>
+                            <div
+                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg group hover:border-primary transition-all duration-300 file-upload-container">
+                                <div class="space-y-1 text-center">
+                                    <div class="mb-4">
+                                        <img src="assets/images/svg/file-upload-illustration.svg" alt="File Upload"
+                                            class="h-28 mx-auto animate-float">
+                                    </div>
+                                    <div class="flex flex-wrap text-sm text-gray-600 justify-center">
+                                        <label for="file-upload"
+                                            class="relative cursor-pointer rounded-md font-medium text-primary hover:text-primary-dark focus-within:outline-none">
+                                            <span>Choose Files</span>
+                                            <input id="file-upload" name="file-upload" type="file" class="sr-only"
+                                                multiple accept="image/png, image/jpeg, image/gif, application/pdf">
+                                        </label>
+                                        <p class="pl-1">or drag and drop</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">
+                                        PNG, JPG, GIF, PDF up to 10MB
+                                    </p>
+                                    <div id="file-chosen" class="text-sm text-gray-500 mt-2">No file chosen</div>
+                                    <!-- File Preview Container -->
+                                    <div id="file-preview" class="hidden mt-4 flex flex-wrap gap-2 justify-center">
+                                    </div>
+                                    <div class="mt-3 hidden" id="upload-progress-container">
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div id="upload-progress" class="progress-bar"></div>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1" id="upload-status">Ready to upload</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit"
+                                class="bg-primary hover:bg-[var(--btn-hover-color)] text-white font-medium py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg submit-btn">
+                                <i class="fas fa-paper-plane mr-2"></i> Create Ticket
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Chat Button - Fixed at bottom right -->
+        <div class="fixed right-4 bottom-4 md:right-8 md:bottom-8 z-10">
+            <button
+                class="bg-primary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg transform transition-all duration-300 hover:scale-110 tooltip"
+                aria-label="Get Help">
+                <i class="fas fa-headset text-2xl"></i>
+                <span class="tooltip-text">Need Help?</span>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 md:mt-12 text-center text-gray-600 text-sm">
+            <p>© 2025 DASH Support System. All rights reserved.</p>
+            <div class="mt-2 flex flex-wrap justify-center space-x-4">
+                <a href="#" class="hover:text-primary transition-colors duration-200">Privacy Policy</a>
+                <a href="#" class="hover:text-primary transition-colors duration-200">Terms of Service</a>
+                <a href="contact.html" class="hover:text-primary transition-colors duration-200">Contact Us</a>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

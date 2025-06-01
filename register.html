@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Support Ticket | WorkDo Dash</title>
+    <link rel="icon" href="assets/images/favicon.png">
+    <!-- Tailwind CSS -->
+    <script src="assets/js/tailwind.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#38bdf8',  // sky-400
+                            DEFAULT: '#14B8A6', // sky-700
+                            dark: ':#068c7d',   // sky-800
+                        },
+                        secondary: {
+                            light: '#14b8a629',  // sky-100
+                            DEFAULT: '#14B8A6', // sky-200
+                            dark: '#068c7d',   // sky-300
+                        },
+                        accent: {
+                            DEFAULT: '#14B8A6', // orange-500
+                            dark: '#ea580c',    // orange-600
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="assets/css/all.min.css">
+
+   
+     <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="animated-bg min-h-screen font-sans register-page-sec">
+  
+    <div class="container mx-auto px-4 py-4 max-w-7xl content-above">
+        <!-- Header with Logo -->
+        <header class="mb-10 md:mb-16 site-header">
+            <!-- Top Header with Logo and Action Buttons -->
+            <div class="bg-primary text-white py-3 px-4 rounded-xl shadow-lg mb-4">
+                <div class="flex flex-wrap justify-between items-center">
+                    <!-- Logo -->
+                     <h1>
+                    <a href="index.html" class="flex items-center space-x-3 lg:max-w-none max-w-[120px]">
+                        <img src="assets/images/logo.png" alt="">
+                    </a>
+                </h1>
+                    <div class="main-nav hidden md:block ">
+                        <nav class="flex flex-wrap justify-center md:gap-3 lg:gap-4">
+                            <a href="index.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Create Ticket
+                            </a>
+                            <a href="search-ticket.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Search Tickets
+                            </a>
+                            <a href="knowledge.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Knowledge Base
+                            </a>
+                            <a href="faq.html"
+                                class="text-white transition font-medium duration-300 lg:text-lg flex items-center hover:text-gray-800">
+                                FAQ
+                            </a>
+                        </nav>
+                    </div>
+                    <!-- Action Buttons (visible only on desktop) -->
+                    <div class="hidden md:flex items-center space-x-3 header-right-color">
+                        <a href="login.html"
+                            class="btn btn-white bg-white text-gray-700 flex items-center transition duration-300 btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span class="m-0">Sign In</span>
+                        </a>
+                        <a href="contact.html"
+                            class="btn btn-white bg-white text-gray-700 flex items-center transition duration-300 btn">
+                            <i class="fas fa-headset"></i>
+                            <span class="m-0">Contact</span>
+                        </a>
+                    </div>
+
+                    <!-- Mobile Menu Button (visible only on mobile) -->
+                    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (initially hidden) -->
+            <div id="mobile-menu" class="bg-white rounded-xl shadow-lg mb-4 p-4 hidden animate-fadeIn md:hidden">
+                <nav class="flex flex-col space-y-2">
+                    <a href="index.html" class="text-primary rounded-lg transition duration-300 flex items-center">
+                        <i class="fas fa-ticket-alt mr-2"></i> Create Ticket
+                    </a>
+                    <a href="search-ticket.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-search mr-2"></i> Search Tickets
+                    </a>
+                    <a href="knowledge.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-book mr-2"></i> Knowledge Base
+                    </a>
+                    <a href="faq.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-question-circle mr-2"></i> FAQ
+                    </a>
+
+                    <div class="flex flex-wrap justify-center items-center border-t pt-3 gap-3">
+                        <a href="login.html" class="btn transition duration-300 flex items-center">
+                            <i class="fas fa-user-circle"></i> Sign In
+                        </a>
+                        <a href="contact.html" class="btn transition duration-300 flex items-center">
+                            <i class="fas fa-headset"></i> Contact Support
+                        </a>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Main Navigation (desktop only) -->
+
+
+
+        </header>
+        
+        <!-- Main Content -->
+        <div class="flex justify-center items-center">
+            <div class="glass-card rounded-xl shadow-lg overflow-hidden w-full max-w-2xl">
+                <!-- Registration Form -->
+                <div class="py-6 px-4 md:p-6">
+                    <div class="text-center mb-4 md:mb-8">
+                        <h2 class="lg:text-3xl md:text-2xl text-xl font-bold text-gray-800">Create Your Account</h2>
+                        <p class="text-gray-500 mt-2">Sign up to get started with our support system</p>
+                    </div>
+                    
+                   
+                    <form id="register-form" class="space-y-5">
+                        <!-- Step 1: Basic Information -->
+                        <div class="step-container active" id="step-1">
+                            <h2 class="text-xl font-medium text-gray-800 mb-4">Basic Information</h2>
+                            
+                            <!-- Name Inputs -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div class="space-y-2">
+                                    <label for="firstName" class="block text-gray-700 text-sm font-medium mb-1">First Name</label>
+                                    <div class="relative">
+                                    
+                                        <input 
+                                            type="text" 
+                                            id="firstName" 
+                                            name="firstName" 
+                                            class="w-full form-input-enhanced pl-4 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                            placeholder="John"
+                                            required
+                                        >
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="lastName" class="block text-gray-700 text-sm font-medium mb-1">Last Name</label>
+                                    <div class="relative">
+                                       
+                                        <input 
+                                            type="text" 
+                                            id="lastName" 
+                                            name="lastName" 
+                                            class="w-full form-input-enhanced pl-4 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                            placeholder="Doe"
+                                            required
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Email Input -->
+                            <div class="space-y-2 mb-4">
+                                <label for="email" class="block text-gray-700 text-sm font-medium mb-1">Email Address</label>
+                                <div class="relative">
+                                   
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        name="email" 
+                                        class="w-full form-input-enhanced pl-4 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        placeholder="your.email@example.com"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            
+                            <!-- Phone Input -->
+                            <div class="space-y-2 mb-4">
+                                <label for="phone" class="block text-gray-700 text-sm font-medium mb-1">Phone Number (Optional)</label>
+                                <div class="relative">
+                                 
+                                    <input 
+                                        type="tel" 
+                                        id="phone" 
+                                        name="phone" 
+                                        class="w-full form-input-enhanced pl-4 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        placeholder="+1 (123) 456-7890"
+                                    >
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-end mt-6">
+                                <button type="button" class="btn transition-colors duration-300 flex items-center" onclick="nextStep(1, 2)">
+                                    <span>Continue</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2: Account Details -->
+                        <div class="step-container" id="step-2">
+                            <h2 class="text-xl font-medium text-gray-800 mb-4">Account Details</h2>
+                            
+                            <!-- Username Input -->
+                            <div class="space-y-2 mb-4">
+                                <label for="username" class="block text-gray-700 text-sm font-medium mb-1">Username</label>
+                                <div class="relative">
+                                  
+                                    <input 
+                                        type="text" 
+                                        id="username" 
+                                        name="username" 
+                                        class="w-full pl-4 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        placeholder="johndoe123"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            
+                            <!-- Password Input -->
+                            <div class="space-y-2 mb-4">
+                                <label for="password" class="block text-gray-700 text-sm font-medium mb-1">Password</label>
+                                <div class="relative">
+                                   
+                                    <input 
+                                        type="password" 
+                                        id="password" 
+                                        name="password" 
+                                        class="w-full pl-4 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        placeholder="••••••••"
+                                        required
+                                        onkeyup="checkPasswordStrength()"
+                                    >
+                                
+                                </div>
+                                <div id="password-strength" class="mt-2">
+                                    <div class="strength-meter"></div>
+                                    <p class="text-xs text-gray-500 mt-1" id="strength-text">Password strength indicator</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Confirm Password Input -->
+                            <div class="space-y-2 mb-4">
+                                <label for="confirmPassword" class="block text-gray-700 text-sm font-medium mb-1">Confirm Password</label>
+                                <div class="relative">
+                                
+                                    <input 
+                                        type="password" 
+                                        id="confirmPassword" 
+                                        name="confirmPassword" 
+                                        class="w-full pl-4 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                        placeholder="••••••••"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between mt-4 md:mt-6 gap-3 flex-wrap">
+                                <button type="button" class="btn bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2 px-6 rounded-lg flex items-center transition-colors duration-300" onclick="prevStep(2, 1)">
+                                    <i class="fas fa-chevron-left "></i>
+                                    <span>Back</span>
+                                </button>
+                                <button type="button" class="btn flex items-center transition-colors duration-300" onclick="nextStep(2, 3)">
+                                    <span>Continue</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 3: Preferences & Terms -->
+                        <div class="step-container" id="step-3">
+                            <h2 class="text-xl font-medium text-gray-800 mb-4">Preferences & Terms</h2>
+                            
+                            <!-- Preferences -->
+                            <div class="mb-6">
+                                <p class="text-gray-700 text-sm font-medium mb-3">Communication Preferences</p>
+                                
+                                <div class="space-y-3">
+                                    <div class="flex items-center">
+                                        <input 
+                                            type="checkbox" 
+                                            id="emailUpdates" 
+                                            name="emailUpdates" 
+                                            class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                            checked
+                                        >
+                                        <label for="emailUpdates" class="ml-2 block text-gray-700 text-sm">Email me with updates and notifications about my tickets</label>
+                                    </div>
+                                    
+                                    <div class="flex items-center">
+                                        <input 
+                                            type="checkbox" 
+                                            id="newsletter" 
+                                            name="newsletter" 
+                                            class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        >
+                                        <label for="newsletter" class="ml-2 block text-gray-700 text-sm">Subscribe to the monthly newsletter</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Terms -->
+                            <div class="bg-gray-100 p-4 rounded-lg mb-4 md:mb-6">
+                                <div class="flex items-start">
+                                    <input 
+                                        type="checkbox" 
+                                        id="terms" 
+                                        name="terms" 
+                                        class="w-4 h-4 mt-1 text-primary border-gray-300 rounded focus:ring-primary"
+                                        required
+                                    >
+                                    <label for="terms" class="ml-2 block text-gray-700 text-sm">
+                                        I have read and agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Captcha -->
+                            <div class="bg-gray-100 p-4 rounded-lg mb-4 md:mb-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-700 text-sm font-medium">Security Verification</span>
+                                    <button type="button" class="text-gray-500 hover:text-gray-700 text-sm flex items-center">
+                                        <i class="fas fa-sync-alt mr-1"></i>
+                                        <span>Refresh</span>
+                                    </button>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg text-center border border-gray-200">
+                                    <p class="text-gray-500 italic">CAPTCHA goes here</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between mt-4 md:mt-6 gap-3 flex-wrap">
+                                <button type="button" class="btn bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2 px-6 rounded-lg flex items-center transition-colors duration-300" onclick="prevStep(3, 2)">
+                                    <i class="fas fa-chevron-left "></i>
+                                    <span>Back</span>
+                                </button>
+                                <button type="submit" class="btn transition-colors duration-300">
+                                    <i class="fas fa-user-plus"></i>
+                                    <span>Create Account</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <!-- Social Registration -->
+                    <div class="mt-4 md:mt-8">
+                        <div class="relative flex items-center justify-center">
+                            <div class="flex-grow border-t border-gray-200"></div>
+                            <span class="flex-shrink mx-4 text-gray-400 text-sm">or register with</span>
+                            <div class="flex-grow border-t border-gray-200"></div>
+                        </div>
+                        
+                        <div class="flex justify-center mt-4 md:mt-6 space-x-4">
+                            <button class="w-8 h-8 md:w-10 md:h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors duration-300">
+                                <i class="fab fa-google text-[#4285F4]"></i>
+                            </button>
+                            <button class="w-8 h-8 md:w-10 md:h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors duration-300">
+                                <i class="fab fa-facebook-f text-[#3b5998]"></i>
+                            </button>
+                            <button class="w-8 h-8 md:w-10 md:h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors duration-300">
+                                <i class="fab fa-x-twitter text-[#1DA1F2]"></i>
+                            </button>
+                            <button class="w-8 h-8 md:w-10 md:h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors duration-300">
+                                <i class="fab fa-apple text-black"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4 md:mt-8">
+                        <p class="text-gray-600">
+                            Already have an account? 
+                            <a href="login.html" class="text-primary hover:text-primary-dark font-medium transition-colors duration-200">Sign in</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Back to Home Link -->
+        <div class="text-center mt-4 md:mt-8">
+            <a href="index.html" class="inline-flex items-center text-primary hover:text-primary-dark">
+                <i class="fas fa-arrow-left mr-2"></i>
+                <span>Back to Home</span>
+            </a>
+        </div>
+         <!-- Footer -->
+         <footer class="mt-8 md:mt-12 text-center text-gray-600 text-sm">
+            <p>© 2025 DASH Support System. All rights reserved.</p>
+            <div class="mt-2 flex flex-wrap justify-center space-x-4">
+                <a href="#" class="hover:text-primary transition-colors duration-200">Privacy Policy</a>
+                <a href="#" class="hover:text-primary transition-colors duration-200">Terms of Service</a>
+                <a href="contact.html" class="hover:text-primary transition-colors duration-200">Contact Us</a>
+            </div>
+        </footer>
+    </div>
+    
+    
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Password Toggle Functionality
+            const togglePassword = document.getElementById('togglePassword');
+            const password = document.getElementById('password');
+            
+            if (togglePassword && password) {
+                togglePassword.addEventListener('click', function() {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+                    
+                    // Toggle the eye icon
+                    this.classList.toggle('fa-eye');
+                    this.classList.toggle('fa-eye-slash');
+                });
+            }
+            
+            // Create floating particles
+            const particlesContainer = document.getElementById('particles');
+            if (particlesContainer) {
+                createParticles(particlesContainer, 20);
+            }
+        });
+        
+        // Function to create floating particles
+        function createParticles(container, count) {
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 3px and 7px
+                const size = Math.random() * 4 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position within container
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                // Random animation duration between 10s and 25s
+                const duration = Math.random() * 15 + 10;
+                
+                // Create the animation
+                particle.style.animation = `particle-float ${duration}s infinite`;
+                
+                // Add the keyframes for this specific particle
+                const style = document.createElement('style');
+                const animName = `particle-float`;
+                
+                // Random movement pattern
+                const maxTranslate = 100; // maximum pixels to move
+                
+                style.textContent = `
+                    @keyframes ${animName} {
+                        0% {
+                            transform: translate(0, 0) scale(1);
+                        }
+                        25% {
+                            transform: translate(${Math.random() * maxTranslate - maxTranslate/2}px, 
+                                                ${Math.random() * maxTranslate - maxTranslate/2}px) scale(${Math.random() * 0.5 + 0.8});
+                            opacity: ${Math.random() * 0.5 + 0.3};
+                        }
+                        50% {
+                            transform: translate(${Math.random() * maxTranslate - maxTranslate/2}px, 
+                                                ${Math.random() * maxTranslate - maxTranslate/2}px) scale(${Math.random() * 0.5 + 0.8});
+                            opacity: ${Math.random() * 0.5 + 0.3};
+                        }
+                        75% {
+                            transform: translate(${Math.random() * maxTranslate - maxTranslate/2}px, 
+                                                ${Math.random() * maxTranslate - maxTranslate/2}px) scale(${Math.random() * 0.5 + 0.8});
+                            opacity: ${Math.random() * 0.5 + 0.3};
+                        }
+                        100% {
+                            transform: translate(0, 0) scale(1);
+                        }
+                    }
+                `;
+                
+                document.head.appendChild(style);
+                container.appendChild(particle);
+            }
+        }
+        
+        // Form Steps Navigation
+        function nextStep(currentStep, nextStep) {
+            // Basic validation
+            if (currentStep === 1) {
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const email = document.getElementById('email').value;
+                
+                if (!firstName || !lastName || !email) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+            } else if (currentStep === 2) {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (!username || !password || !confirmPassword) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match');
+                    return;
+                }
+            }
+            
+            // Hide current step
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            
+            // Show next step
+            document.getElementById(`step-${nextStep}`).classList.add('active');
+            
+            // Update progress bar
+            const progressFill = document.getElementById('progress-fill');
+            progressFill.style.width = `${nextStep * 33.33}%`;
+        }
+        
+        function prevStep(currentStep, prevStep) {
+            // Hide current step
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            
+            // Show previous step
+            document.getElementById(`step-${prevStep}`).classList.add('active');
+            
+            // Update progress bar
+            const progressFill = document.getElementById('progress-fill');
+            progressFill.style.width = `${prevStep * 33.33}%`;
+        }
+        
+        // Password Strength Check
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthIndicator = document.getElementById('password-strength');
+            const strengthText = document.getElementById('strength-text');
+            
+            // Remove existing classes
+            strengthIndicator.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
+            
+            if (password.length === 0) {
+                strengthText.innerText = 'Password strength indicator';
+                return;
+            }
+            
+            // Check strength
+            let strength = 0;
+            
+            // Length check
+            if (password.length >= 8) strength += 1;
+            
+            // Character variety checks
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+            
+            // Update UI based on strength
+            if (password.length < 6) {
+                strengthIndicator.classList.add('strength-weak');
+                strengthText.innerText = 'Weak - Use at least 6 characters';
+            } else if (strength < 3) {
+                strengthIndicator.classList.add('strength-weak');
+                strengthText.innerText = 'Weak - Add numbers and special characters';
+            } else if (strength === 3) {
+                strengthIndicator.classList.add('strength-medium');
+                strengthText.innerText = 'Medium - Add more variety for stronger security';
+            } else {
+                strengthIndicator.classList.add('strength-strong');
+                strengthText.innerText = 'Strong - Good job!';
+            }
+        }
+    </script>
+</body>
+</html>

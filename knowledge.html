@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Support Ticket | WorkDo Dash</title>
+    <link rel="icon" href="assets/images/favicon.png">
+    <!-- Tailwind CSS CDN -->
+    <script src="assets/js/tailwind.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom configuration for Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#38bdf8',  // sky-400
+                            DEFAULT: '#14B8A6', // sky-700
+                            dark: ':#068c7d',   // sky-800
+                        },
+                        secondary: {
+                            light: '#14b8a629',  // sky-100
+                            DEFAULT: '#bae6fd', // sky-200
+                            dark: '#068c7d',   // sky-300
+                        },
+                        accent: {
+                            DEFAULT: '#14B8A6', // orange-500
+                            dark: '#ea580c',    // orange-600
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'fadeIn': 'fadeIn 0.5s ease-out',
+                        'slideIn': 'slideIn 0.5s ease-out',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="assets/css/all.min.css">
+
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+<body class=" min-h-screen font-sans relative overflow-x-hidden animated-bg knowledge-sec">
+    <!-- Background Shapes -->
+
+    
+    <div class="container mx-auto px-4 py-4 max-w-7xl relative z-10">
+        <!-- Header -->
+        <header class="mb-10 md:mb-16 site-header">
+            <!-- Top Header with Logo and Action Buttons -->
+            <div class="bg-primary text-white py-3 px-4 rounded-xl shadow-lg mb-4">
+                <div class="flex flex-wrap justify-between items-center">
+                    <!-- Logo -->
+                     <h1>
+                    <a href="index.html" class="flex items-center space-x-3 lg:max-w-none max-w-[120px]">
+                        <img src="assets/images/logo.png" alt="">
+                    </a>
+                </h1>
+                    <div class="main-nav hidden md:block ">
+                        <nav class="flex flex-wrap justify-center md:gap-3 lg:gap-4">
+                            <a href="index.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Create Ticket
+                            </a>
+                            <a href="search-ticket.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Search Tickets
+                            </a>
+                            <a href="knowledge.html"
+                                class="text-white transition font-medium lg:text-lg duration-300 flex items-center hover:text-gray-800">
+                                Knowledge Base
+                            </a>
+                            <a href="faq.html"
+                                class="text-white transition font-medium duration-300 lg:text-lg flex items-center hover:text-gray-800">
+                                FAQ
+                            </a>
+                        </nav>
+                    </div>
+                    <!-- Action Buttons (visible only on desktop) -->
+                    <div class="hidden md:flex items-center space-x-3 header-right-color">
+                        <a href="login.html"
+                            class="btn btn-white bg-white text-gray-700 flex items-center transition duration-300 btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span class="m-0">Sign In</span>
+                        </a>
+                        <a href="contact.html"
+                            class="btn btn-white bg-white text-gray-700 flex items-center transition duration-300 btn">
+                            <i class="fas fa-headset"></i>
+                            <span class="m-0">Contact</span>
+                        </a>
+                    </div>
+
+                    <!-- Mobile Menu Button (visible only on mobile) -->
+                    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (initially hidden) -->
+            <div id="mobile-menu" class="bg-white rounded-xl shadow-lg mb-4 p-4 hidden animate-fadeIn md:hidden">
+                <nav class="flex flex-col space-y-2">
+                    <a href="index.html" class="text-primary rounded-lg transition duration-300 flex items-center">
+                        <i class="fas fa-ticket-alt mr-2"></i> Create Ticket
+                    </a>
+                    <a href="search-ticket.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-search mr-2"></i> Search Tickets
+                    </a>
+                    <a href="knowledge.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-book mr-2"></i> Knowledge Base
+                    </a>
+                    <a href="faq.html"
+                        class="text-gray-700 rounded-lg hover:text-primary transition duration-300 flex items-center">
+                        <i class="fas fa-question-circle mr-2"></i> FAQ
+                    </a>
+
+                    <div class="flex flex-wrap justify-center items-center border-t pt-3 gap-3">
+                        <a href="login.html" class="btn transition duration-300 flex items-center">
+                            <i class="fas fa-user-circle"></i> Sign In
+                        </a>
+                        <a href="contact.html" class="btn transition duration-300 flex items-center">
+                            <i class="fas fa-headset"></i> Contact Support
+                        </a>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Main Navigation (desktop only) -->
+
+
+
+        </header>
+        
+        <!-- Hero Section with Search -->
+        <div class="hero-section rounded-2xl overflow-hidden shadow-xl mb-8 md:mb-12 bg-primary">
+            <div class="hero-pattern"></div>
+            <div class="relative py-6 px-4 md:p-10 lg:p-12">
+                <div class="max-w-3xl mx-auto text-center relative z-10">
+                    <div class="mb-2 inline-block p-2 px-4 bg-white/20 rounded-full text-white text-sm backdrop-blur-sm">
+                        <i class="fas fa-lightbulb mr-2"></i> Knowledge Center
+                    </div>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-white mb-4">Discover Answers & Insights</h2>
+                    <p class="text-white mb-4 md:mb-6 animate-fadeIn">Find solutions to common questions and learn how to get the most out of our platform</p>
+                    
+                    <!-- Interactive Search Bar -->
+                    <div class="search-input-wrapper mx-auto max-w-2xl">
+                        <input type="text" class="search-input" placeholder="What are you looking for?">
+                        <button class="search-button">Search</button>
+                    </div>
+                    
+                    <!-- Popular Searches -->
+                    <div class="mt-6 flex flex-wrap justify-center gap-2">
+                        <span class="text-sm text-white px-2 py-1">Popular:</span>
+                        <a href="#" class="text-sm px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full text-white backdrop-blur-sm transition-all duration-300">
+                            Password Reset
+                        </a>
+                        <a href="#" class="text-sm px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full text-white backdrop-blur-sm transition-all duration-300">
+                            Account Setup
+                        </a>
+                        <a href="#" class="text-sm px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full text-white backdrop-blur-sm transition-all duration-300">
+                            Installation Guide
+                        </a>
+                        <a href="#" class="text-sm px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full text-white backdrop-blur-sm transition-all duration-300">
+                            Database Creation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- All Articles Section -->
+        <div class="mb-8 md:mb-12">
+            <div class="mb-4 md:mb-6">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-gray-800">All Knowledge Articles</h2>
+                
+                <!-- Filter Dropdown -->
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Basic Usage Category -->
+                <div class="rounded-xl shadow-lg overflow-hidden bg-white">
+                    <div class="bg-primary py-4 px-5">
+                        <h3 class="text-white font-medium flex items-center text-lg">
+                            <i class="fas fa-laptop-code mr-2"></i>
+                            Basic Usage
+                        </h3>
+                    </div>
+                    <div class="p-4 md:p-5 space-y-1">
+                        <!-- Article 1 -->
+                        <div class="article-box rounded-lg">
+                            <a href="knowledge-article.html" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">How to Create a new Database</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: May 1, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Article 2 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">Best Format for Logo to Upload</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: Apr 28, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Article 3 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">Users Live System Notifications</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: Apr 23, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Article 4 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">Tickets Files Attachment Support</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: Apr 20, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Installation Category -->
+                <div class="rounded-xl shadow-lg overflow-hidden bg-white">
+                    <div class="bg-primary py-4 px-5">
+                        <h3 class="text-white font-medium flex items-center text-lg">
+                            <i class="fas fa-download mr-2"></i>
+                            Installation
+                        </h3>
+                    </div>
+                    <div class="p-4 md:p-5 space-y-1">
+                        <!-- Article 1 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">How to Install the Application</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: May 3, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Article 2 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">System Requirements for Installation</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: May 2, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Article 3 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">Troubleshooting Installation Issues</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: Apr 29, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Article 4 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">Upgrading from a Previous Version</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: Apr 25, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Account Management Category -->
+                <div class="rounded-xl shadow-lg overflow-hidden bg-white">
+                    <div class="bg-primary py-4 px-5">
+                        <h3 class="text-white font-medium flex items-center text-lg">
+                            <i class="fas fa-users-cog mr-2"></i>
+                            Account Management
+                        </h3>
+                    </div>
+                    <div class="p-4 md:p-5 space-y-1">
+                        <!-- Article 1 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">How to Create a User Account</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: May 4, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Article 2 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">How to Assign Roles and Permissions</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: May 1, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Article 3 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">How to Edit User Profile</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: Apr 28, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Article 4 -->
+                        <div class="article-box rounded-lg">
+                            <a href="#" class="flex items-center p-3 gap-2 group">
+                                <div class="icon-box w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-gray-800 group-hover:text-primary transition-colors duration-300">How to Delete a User Account</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Last updated: Apr 24, 2025</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Help Banner -->
+        <div class="bg-primary rounded-2xl shadow-xl overflow-hidden mb-8 md:mb-12">
+            <div class="flex flex-col lg:flex-row items-center p-4 md:p-6 lg:p-8 relative overflow-hidden">
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-10 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                        <defs>
+                            <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse">
+                                <circle cx="2" cy="2" r="1" fill="white"></circle>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#dots)"></rect>
+                    </svg>
+                </div>
+                
+                <div class="w-full lg:w-2/3 z-10">
+                    <div class="bg-white/10 text-white text-sm py-1 px-3 rounded-full inline-block mb-4 backdrop-blur-sm">
+                        <i class="fas fa-info-circle mr-1"></i> Need Further Assistance?
+                    </div>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-white mb-4">Can't find what you're looking for?</h2>
+                    <p class="text-white mb-4">Our support team is here to help you with any questions or issues you might be experiencing.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="index.html" class="btn btn-white transition-all duration-300 submit-btn">
+                            <i class="fas fa-ticket-alt"></i> Create a Support Ticket
+                        </a>
+                        <a href="faq.html" class="btn bg-white/20 hover:bg-white/30 text-white transition-all duration-300">
+                            <i class="fas fa-question-circle"></i> View FAQs
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/3 flex justify-center lg:justify-end  pt-4 md:p-4 z-10">
+                    <img src="assets/images/svg/support-illustration.svg" alt="Support" class="max-w-full h-auto max-h-56 lg:max-h-80 rounded-lg">
+                </div>
+            </div>
+        </div>
+         <!-- Footer -->
+         <footer class="mt-8 md:mt-12 text-center text-gray-600 text-sm">
+            <p>© 2025 DASH Support System. All rights reserved.</p>
+            <div class="mt-2 flex flex-wrap justify-center space-x-4">
+                <a href="#" class="hover:text-primary transition-colors duration-200">Privacy Policy</a>
+                <a href="#" class="hover:text-primary transition-colors duration-200">Terms of Service</a>
+                <a href="contact.html" class="hover:text-primary transition-colors duration-200">Contact Us</a>
+            </div>
+        </footer>
+    </div>
+    
+   
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    if (mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.remove('hidden');
+                        mobileMenuButton.innerHTML = '<i class="fas fa-times text-2xl"></i>';
+                    } else {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
